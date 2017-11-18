@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImageRequest;
 use App\Incident;
 use App\Services\GeoCord;
 use App\Services\Sms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+//use Illuminate\Support\Facades\Validator;
+use Validator;
 use Intervention\Image\Facades\Image;
 use Ramsey\Uuid\Uuid;
 
@@ -30,6 +33,7 @@ class PostController extends Controller
             if ($result['accuracy'] != "result_not_found") {
                 $data['longitude'] = $result['lng'];
                 $data['latitude'] = $result['lat'];
+                $data['location'] = $city . ", " . $state;
             }
         }
         $incident = Incident::create($data);
@@ -42,39 +46,40 @@ class PostController extends Controller
      * @param Request $request
      * @return void
      */
-    public function uploadImage(Request $request){
+    public function uploadImage(ImageRequest $request)
+    {
+        //dd($request->all());
+
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            if($request->avatar!=null){
+            if ($request->avatar != null) {
             }
-            $extension =$request->avatar->extension();
-            $file_name = Uuid::uuid4().'.'.$extension;;
-            $path ='image';
-            if(!Storage::exists($path)) Storage::makeDirectory($path, 775);
-            $avatar  =Image::make($request->image)->resize(null,300,function ($constraint){
+            $extension = $request->image->extension();
+            $file_name = Uuid::uuid4() . '.' . $extension;;
+            $path = 'image';
+            if (!Storage::disk('public')->exists($path)) Storage::disk('public')->makeDirectory($path, 775);
+            $avatar = Image::make($request->image)->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
             });
 
-            $avatar =$avatar->stream();
-            $avatar_path =$path.DIRECTORY_SEPARATOR.$file_name;
+            $avatar = $avatar->stream();
+            $avatar_path = $path . DIRECTORY_SEPARATOR . $file_name;
             //dd(storage_path().'/'.$avatar_path);
-            Storage::disk()->put($avatar_path,$avatar->__toString());
-
-            $geo =new GeoCord();
-
-            $lat =$request->lat;
-            $lng =$request->lng;
-            $location =$geo->getLocationFromCoordinate($lat,$lng);
-            $incident=Incident::create(
-                [
-                    'name'=>"WEB PLATFORM",
-                    'fromIp'=>request()->ip(),
-                    'latitude'=>$lat,
-                    'longitude'=>$lng,
-                    'location'=>$location,
-                    'photo'=>$avatar_path]
-            );
-            if($incident){
-                return response(['status'=>true,'msg'=>'Data saved successfully']);
+            Storage::disk('public')->put($avatar_path, $avatar->__toString());
+            if ($request->has('lat') && $request->has('lng')) {
+                $lat =$request->lat;
+                $lng =$request->lng;
+                $data['longitude'] = $lng;
+                $data['latitude'] = $lat;
+                $geo = new GeoCord();
+                $result = $geo->getLocationFromCoordinate(floatval($lat), floatval($lng));
+                $data['location'] = $result['formatted_address'];
+            }
+            $data['photo'] = $avatar_path;
+            $data['name'] = "WEB PLATFORM";
+            $data['fromIp'] = request()->ip();
+            $incident = Incident::create($data);
+            if ($incident) {
+                return response(['status' => true, 'msg' => 'Data saved successfully']);
             }
         }
     }
