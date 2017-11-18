@@ -15,7 +15,8 @@ Route::get('/', function () {
     return view('page.home');
 });
 
-Route::get('/places', function () {
-    return view('page.places');
-});
+Route::get('api/incidents','PageController@getDashboard');
+Route::post('api/upload/image', 'PostController@uploadImage');
+
+Route::post('api/twilio', 'PostController@getUssD');
 
