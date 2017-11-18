@@ -14,11 +14,11 @@ class PostController extends Controller
         $from =$request->from;
         $body =$request->body;
         $city =isset($request->FromCity)?$request->FromCity:null;
-
-        $state =$request->FromState;
-
+        $state =isset($request->FromState)?$request->FromState:null;
     }
 
-    public  function  getGeoCoordinateFromAddress(){}
+    public  function  getGeoCoordinateFromAddress(){
+
+    }
 
 }
