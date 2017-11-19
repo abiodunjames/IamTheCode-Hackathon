@@ -24,6 +24,7 @@ Route::post('api/twilio', 'PostController@getUssD');
 Route::get('/submit', function () { return view('page.home');});
 
 Route::get('dashboard','PageController@DashboardPage');
+Route::get('api/ussd','PageController@postMobileUSSD');
 
 Route::get('/submit', function () {
     return view('page.home');

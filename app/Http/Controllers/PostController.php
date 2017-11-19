@@ -93,5 +93,20 @@ class PostController extends Controller
 
         }
     }
+
+    public  function  postMobileUSSD(Request $request){
+        $data['name'] ='USSD PLATFORM';
+        $data['location']=$request->address;
+        $geo =new GeoCord();
+        $result =$geo->getByAddress($data['location']);
+        $data['longitude'] = $result['lng'];
+        $data['latitude'] = $result['lat'];
+        $inc=Incident::create($data);
+        if($inc){
+            return response(['status'=>true,'data'=>'Data saved successfully']);
+        }
+
+
+    }
 }
 
