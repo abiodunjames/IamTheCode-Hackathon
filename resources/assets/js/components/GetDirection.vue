@@ -64,7 +64,7 @@
                     'app_id': 'njPCpjldWLDokbhA74cX',
                     'app_code': 'RkttCWFr-QDBsBAcPDO9AQ',
                     useCIT: true,
-                    //useHTTPS: true
+                    useHTTPS: true
                 });
             }
         },
