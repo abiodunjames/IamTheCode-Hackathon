@@ -30,6 +30,11 @@
                 <p class="description">Your information will be kept confidential.</p>
                 <form action="/api/upload/image" method="post" enctype="multipart/form-data" id="uploadForm">
                   <div class="col-lg-6 text-center col-md-8 ml-auto mr-auto">
+                    @if ($session->has('msg'))
+                        <div class="alert alert-success" role="alert">
+                          Your upload has been successfully sent.
+                        </div>
+                    @endif
                     @if ($errors->any())
                         <div class="alert alert-danger" role="alert">
                             Please fix the following errors
