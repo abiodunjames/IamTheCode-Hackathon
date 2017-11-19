@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
 
-    public  function  getHome(){
+    public  function  index(){
+
     }
 
     public  function getDashboard(){

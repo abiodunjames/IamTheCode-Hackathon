@@ -25,6 +25,19 @@ Route::get('/submit', function () { return view('page.home');});
 
 Route::get('dashboard','PageController@DashboardPage');
 
+Route::get('/submit', function () {
+    return view('page.home');
+});
+
 Route::get('/places', function () {
     return view('page.places');
+});
+Route::post('/submit', 'SubmissionController@saveSubmission')->name('submit');
+
+Route::group(['middleware' => ['web']], function () {
+  Route::get('/admin', 'PageController@index');
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
 });

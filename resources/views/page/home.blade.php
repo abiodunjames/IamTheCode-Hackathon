@@ -1,4 +1,4 @@
-@extends('layout');
+@extends('layout')
 
 @section('content')
 
@@ -28,14 +28,11 @@
             <div class="container">
                 <h2 class="title">Upload pictures of suspects</h2>
                 <p class="description">Your information will be kept confidential.</p>
-                <form action="/submit" method="post" onsubmit="getLocation()" enctype="multipart/form-data">
+                <form action="/submit" method="post" enctype="multipart/form-data" id="uploadForm">
                   <div class="col-lg-6 text-center col-md-8 ml-auto mr-auto">
                     @if ($errors->any())
                         <div class="alert alert-danger" role="alert">
-                            Please fix the following errors:
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                            Please fix the following errors
                         </div>
                     @endif
                   </div>
@@ -66,7 +63,7 @@
                         <input type="hidden" name="lat" id="lat" value="0.0">
                         <input type="hidden" name="lng" id="lng" value="0.0">
                         <div class="send-button">
-                            <input class="btn btn-primary btn-round btn-block btn-lg" type="submit" value="Upload">
+                            <input class="btn btn-primary btn-round btn-block btn-lg" type="submit" value="Upload" id="uploadButton">
                         </div>
                       </div>
                     </form>
@@ -74,28 +71,38 @@
             </div>
         </div>
 
-    <script>
+@endsection
 
-          function getLocation() {
-              if (navigator.geolocation) {
-                  return navigator.geolocation.getCurrentPosition(showPosition);
-              } else {
-                console.log("Geolocation is not supported by this browser.");
+@section('scripts')
 
-                return true;
-              }
+      $(document).ready(function() {
+          $("#uploadButton").click(function(event){
+            event.preventDefault();
+
+            getLocation();
+          });
+      });
+
+      function getLocation() {
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            console.log("Geolocation is not supported by this browser.");
+
+            $("#uploadForm").submit();
+            return true;
           }
+      }
 
-          function showPosition(position) {
-              console.log("Latitude: " + position.coords.latitude +
-              "Longitude: " + position.coords.longitude);
+      function showPosition(position) {
+          console.log("Latitude: " + position.coords.latitude +
+          "Longitude: " + position.coords.longitude);
 
-              document.getElementById("lat").id = position.coords.latitude;
-              document.getElementById("lng").id = position.coords.longitude;
+          document.getElementById("lat").value = position.coords.latitude;
+          document.getElementById("lng").value = position.coords.longitude;
 
-              return true;
-          }
-    </script>
-
+          $("#uploadForm").submit();
+          return true;
+      }
 
 @endsection
