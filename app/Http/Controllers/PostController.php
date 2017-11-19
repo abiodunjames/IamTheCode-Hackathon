@@ -8,10 +8,11 @@ use App\Services\GeoCord;
 use App\Services\Sms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-//use Illuminate\Support\Facades\Validator;
-use Validator;
 use Intervention\Image\Facades\Image;
 use Ramsey\Uuid\Uuid;
+use Validator;
+
+//use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -67,12 +68,12 @@ class PostController extends Controller
           //  Storage::disk('public')->put($avatar_path, $avatar->__toString());
             $request->image->move(public_path($path), $file_name);
 
-            if($request->has('email')){
-                $data['email'] =$request->email;
+            if ($request->has('email')) {
+                $data['email'] = $request->email;
             }
             if ($request->has('lat') && $request->has('lng')) {
-                $lat =$request->lat;
-                $lng =$request->lng;
+                $lat = $request->lat;
+                $lng = $request->lng;
                 $data['longitude'] = $lng;
                 $data['latitude'] = $lat;
                 $geo = new GeoCord();
@@ -84,9 +85,14 @@ class PostController extends Controller
             $data['fromIp'] = request()->ip();
             $incident = Incident::create($data);
             if ($incident) {
-                return response(['status' => true, 'msg' => 'Data saved successfully']);
+                if (!$request->ajax()) {
+                    return back()->with('msg', 'Thank you for reporting. ');
             }
+                return response(['status' => true, 'msg' => 'Data saved successfully']);
+
+            }
+
         }
     }
-
 }
+

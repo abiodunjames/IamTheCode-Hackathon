@@ -2,9 +2,9 @@
 <div>
         <div class="row">
             <div class="card">
-                    <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="">
+                    <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="black">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" role="tab">
+                            <a class="nav-link " data-toggle="tab" role="tab">
                                 Direction
                             </a>
                         </li>
