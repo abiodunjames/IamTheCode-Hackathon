@@ -28,7 +28,7 @@
             <div class="container">
                 <h2 class="title">Upload pictures of suspects</h2>
                 <p class="description">Your information will be kept confidential.</p>
-                <form action="/submit" method="post" enctype="multipart/form-data" id="uploadForm">
+                <form action="/api/upload/image" method="post" enctype="multipart/form-data" id="uploadForm">
                   <div class="col-lg-6 text-center col-md-8 ml-auto mr-auto">
                     @if ($errors->any())
                         <div class="alert alert-danger" role="alert">
@@ -43,10 +43,12 @@
                             <span class="input-group-addon">
                                 <i class="now-ui-icons users_circle-08"></i>
                             </span>
-                            <input type="file" class="form-control" placeholder="Upload file" name="image_file">
+                            <input type="file" class="form-control" placeholder="Upload file" name="image" id="image_file">
                         </div>
-                        @if($errors->has('image_file'))
-                            <span class="help-block">{{ $errors->first('image_file') }}</span>
+                        <img id="image" />
+                        <br/><br/>
+                        @if($errors->has('image'))
+                            <span class="help-block">{{ $errors->first('image') }}</span>
                         @endif
                         <div class="input-group input-lg">
                             <span class="input-group-addon">
@@ -57,9 +59,9 @@
                                 <span class="help-block">{{ $errors->first('email') }}</span>
                             @endif
                         </div>
-                        <div class="textarea-container">
+                        <!--div class="textarea-container">
                             <textarea class="form-control" rows="2" cols="80" placeholder="Type a message..." name="description">{{old('description')}}</textarea>
-                        </div>
+                        </div-->
                         <input type="hidden" name="lat" id="lat" value="0.0">
                         <input type="hidden" name="lng" id="lng" value="0.0">
                         <div class="send-button">
@@ -104,5 +106,24 @@
           $("#uploadForm").submit();
           return true;
       }
+
+      document.getElementById("image_file").onchange = function () {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            // get loaded data and render thumbnail.
+            var img = document.getElementById("image");
+            img.src = e.target.result;
+
+            var width = img.clientWidth;
+            var height = img.clientHeight;
+
+            var newWidth = "";
+            var newHeight = "";
+        };
+
+        // read the image file as a data URL.
+        reader.readAsDataURL(this.files[0]);
+    };
 
 @endsection
