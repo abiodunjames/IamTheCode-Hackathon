@@ -12530,7 +12530,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -12586,6 +12586,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Report_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Report_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__GetDirection_vue__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__GetDirection_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__GetDirection_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13469,7 +13497,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             behaviour: null,
             map: null,
             waypoint0: '6.44353,3.47514', // Fernsehturm
-            waypoint1: '6.57015,3.32143'
+            waypoint1: '6.4513141,3.4652179'
         };
     },
 
@@ -13482,7 +13510,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         __WEBPACK_IMPORTED_MODULE_0__eventBus_bus_vue___default.a.$on('raiseModal', function ($event) {
             console.log($event);
             _this.waypoint0 = $event;
-            //this.raiseModal();
+            document.getElementById('map').innerHTML = "";
+            document.getElementById('panel').innerHTML = "";
+
             _this.init();
         });
     },
@@ -13491,6 +13521,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return document.getElementById('map');
         },
         routeInstructionsContainer: function routeInstructionsContainer() {
+            document.getElementById('panel').innerHTML = "";
             return document.getElementById('panel');
         },
         platform: function platform() {
@@ -13726,7 +13757,7 @@ var staticRenderFns = [
       "ul",
       {
         staticClass: "nav nav-tabs nav-tabs-neutral justify-content-center",
-        attrs: { role: "tablist", "data-background-color": "orange" }
+        attrs: { role: "tablist", "data-background-color": "" }
       },
       [
         _c("li", { staticClass: "nav-item" }, [
@@ -14568,7 +14599,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            incidents: []
+            incidents: [],
+            selected: null
         };
     },
 
@@ -14589,9 +14621,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (response.status == false) {}
             });
         },
-        show: function show(lat, lng) {
+        show: function show(lat, lng, id) {
             var value = lat + "," + lng;
             __WEBPACK_IMPORTED_MODULE_1__eventBus_bus_vue___default.a.$emit('raiseModal', value);
+            this.selected = id;
         }
     }
 
@@ -15491,6 +15524,8 @@ var render = function() {
         _c("div", { staticClass: "section section-about-us" }, [
           _c("div", { staticClass: "container-fluid" }, [
             _c("div", { staticClass: "row" }, [
+              _vm._m(1),
+              _vm._v(" "),
               _c("div", { staticClass: "col-md-6" }, [_c("report")], 1),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-6" }, [_c("direction")], 1)
@@ -15510,14 +15545,16 @@ var staticRenderFns = [
     return _c("div", { staticClass: "page-header page-header-small" }, [
       _c("div", {
         staticClass: "page-header-image",
-        staticStyle: { "background-image": "url('/assets/img/bg6.jpg')" },
+        staticStyle: { "background-image": "url('/images/login.jpg')" },
         attrs: { "data-parallax": "true" }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "content-center" }, [
           _c("h1", { staticClass: "title" }, [
-            _vm._v("This is our great company.")
+            _vm._v(
+              "\n                        On a special mission to eradicate human trafficking\n                    "
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "text-center" }, [
@@ -15547,6 +15584,46 @@ var staticRenderFns = [
               },
               [_c("i", { staticClass: "fa fa-google-plus" })]
             )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 justify-content-center" }, [
+      _c("div", { staticClass: "card-deck" }, [
+        _c("div", { staticClass: "col-md-3 card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h1", { staticClass: "m-0 p-0 text-success" }, [_vm._v("25")]),
+            _vm._v(" "),
+            _c("h3", [_vm._v("Traffickers Confirmed")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3 card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h1", { staticClass: "m-0 p-0 text-warning" }, [_vm._v("10")]),
+            _vm._v(" "),
+            _c("h3", [_vm._v("Traffickers on the Run")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3 card " }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h1", { staticClass: "m-0 p-0 text-info" }, [_vm._v("5")]),
+            _vm._v(" "),
+            _c("h3", [_vm._v("Traffickers Prosecuted")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3 card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h1", { staticClass: "m-0 p-0" }, [_vm._v("5")]),
+            _vm._v(" "),
+            _c("h3", [_vm._v("Traffickers Prosecuted")])
           ])
         ])
       ])
@@ -16509,7 +16586,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n.table-bordered td[data-v-19002d6b], .table-bordered th[data-v-19002d6b] {\n    border: 1px solid #e9ecef;\n    font-size: 12px;\n}\n.table td[data-v-19002d6b], .table th[data-v-19002d6b] {\n    padding: 0.2rem;\n    vertical-align: top;\n    border-top: 1px solid #e9ecef;\n}\n\n", ""]);
+exports.push([module.i, "\n.active-row[data-v-19002d6b] {\n background-color: lightgray;\n}\n.table-bordered td[data-v-19002d6b], .table-bordered th[data-v-19002d6b] {\n    border: 1px solid #e9ecef;\n    font-size: 12px;\n}\n.table td[data-v-19002d6b], .table th[data-v-19002d6b] {\n    padding: 0.2rem;\n    vertical-align: top;\n    border-top: 1px solid #e9ecef;\n}\n\n", ""]);
 
 // exports
 
@@ -16528,7 +16605,7 @@ var render = function() {
         "ul",
         {
           staticClass: "nav nav-tabs nav-tabs-neutral justify-content-center",
-          attrs: { role: "tablist", "data-background-color": "orange" }
+          attrs: { role: "tablist", "data-background-color": "" }
         },
         [
           _c("li", { staticClass: "nav-item" }, [
@@ -16559,34 +16636,40 @@ var render = function() {
           _c(
             "tbody",
             _vm._l(_vm.incidents, function(row, index) {
-              return _c("tr", [
-                _c("td", [_vm._v(_vm._s(index + 1))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(row.name))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(row.location))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(row.latitude))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(row.longitude))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(row.created_at))]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-success text-white",
-                      on: {
-                        click: function($event) {
-                          _vm.show(row.latitude, row.longitude)
+              return _c(
+                "tr",
+                { class: { "active-row": row.id == _vm.selected } },
+                [
+                  _c("td", [_vm._v(_vm._s(index + 1))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(row.name))]),
+                  _vm._v(" "),
+                  _vm._m(1, true),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(row.location))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(row.latitude))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(row.longitude))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(row.created_at))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-success text-white",
+                        on: {
+                          click: function($event) {
+                            _vm.show(row.latitude, row.longitude, row.id)
+                          }
                         }
-                      }
-                    },
-                    [_vm._v("Show Direction")]
-                  )
-                ])
-              ])
+                      },
+                      [_vm._v("Show Direction")]
+                    )
+                  ])
+                ]
+              )
             })
           )
         ])
@@ -16605,6 +16688,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Photo")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Location")]),
         _vm._v(" "),
         _c("th", [_vm._v("Latitude")]),
@@ -16615,6 +16700,20 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Direction")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", [
+      _c("img", {
+        attrs: {
+          src: "https://picsum.photos/100/100",
+          width: "50",
+          height: "50"
+        }
+      })
     ])
   }
 ]

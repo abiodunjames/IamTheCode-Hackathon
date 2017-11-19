@@ -38,6 +38,8 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/admin', 'PageController@index');
 });
 
+Route::get('login','PageController@login');
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 });
+

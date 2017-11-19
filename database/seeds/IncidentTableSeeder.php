@@ -12,9 +12,9 @@ class IncidentTableSeeder extends Seeder
     public function run()
     {
         //'name','fromIp','latitude','longitude','location','photo'
-        $faker = new Faker\Generator();
-        $faker->addProvider(new Faker\Provider\en_US\Address($faker));
-        $faker->addProvider(new Faker\Provider\en_US\Person($faker));
+        $faker = Faker\Factory::create();
+        $faker->addProvider(new Faker\Provider\en_NG\Address($faker));
+        $faker->addProvider(new Faker\Provider\en_NG\Person($faker));
         $faker->addProvider(new Faker\Provider\Internet($faker));
         $faker->addProvider(new Faker\Provider\DateTime($faker));
 
@@ -23,10 +23,10 @@ class IncidentTableSeeder extends Seeder
             $data['name'] =$faker->name;
             $data['fromIp']=$faker->ipv4;
             $data['location']=$faker->address;
-
+            $data['email']=$faker->email;
             $data['created_at']= $faker->dateTimeThisMonth;
-            $data['latitude']=$faker->latitude;   // 77.147489longitude($min = -180, $max = 180)
-            $data['longitude']=$faker->longitude;
+            $data['latitude']=$faker->latitude(6,7);  // 77.147489longitude($min = -180, $max = 180)
+            $data['longitude']=$faker->longitude(3,4);
             \App\Incident::create($data);
         }
     }

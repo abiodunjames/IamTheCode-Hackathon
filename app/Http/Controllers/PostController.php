@@ -65,6 +65,10 @@ class PostController extends Controller
             $avatar_path = $path . DIRECTORY_SEPARATOR . $file_name;
             //dd(storage_path().'/'.$avatar_path);
             Storage::disk('public')->put($avatar_path, $avatar->__toString());
+
+            if($request->has('email')){
+                $data['email'] =$request->email;
+            }
             if ($request->has('lat') && $request->has('lng')) {
                 $lat =$request->lat;
                 $lng =$request->lng;

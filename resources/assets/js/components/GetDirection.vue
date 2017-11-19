@@ -2,7 +2,7 @@
 <div>
         <div class="row">
             <div class="card">
-                    <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="orange">
+                    <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" role="tab">
                                 Direction
@@ -32,7 +32,7 @@
                 behaviour: null,
                 map: null,
                 waypoint0: '6.44353,3.47514', // Fernsehturm
-                waypoint1: '6.57015,3.32143',
+                waypoint1: '6.4513141,3.4652179',
             }
         },
         mounted: function () {
@@ -42,7 +42,10 @@
             bus.$on('raiseModal', ($event) => {
                 console.log($event);
                 this.waypoint0 = $event;
-                //this.raiseModal();
+                 document.getElementById('map').innerHTML="";
+                document.getElementById('panel').innerHTML="";
+
+
                 this.init();
             });
         },
@@ -52,6 +55,7 @@
 
             },
             routeInstructionsContainer: function () {
+                 document.getElementById('panel').innerHTML="";
                 return document.getElementById('panel');
 
             },

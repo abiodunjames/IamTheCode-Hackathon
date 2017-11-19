@@ -26,7 +26,7 @@ class ImageRequest extends FormRequest
         return [
             'image'=>'required|image',
             'lat'=>'required',
-            'lng'=>'required'
+            'lng'=>'required',
         ];
     }
 }

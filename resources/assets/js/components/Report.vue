@@ -1,15 +1,13 @@
 <template>
     <div class="row">
         <div class="card">
-            <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="orange">
+            <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="">
 
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" role="tab" @click="getData()">
                         <i class="now-ui-icons objects_umbrella-13"></i> Refresh
                     </a>
                 </li>
-
-
 
             </ul>
 
@@ -19,6 +17,7 @@
                     <tr>
                         <th></th>
                         <th>Name</th>
+                        <th>Photo</th>
                         <th>Location</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
@@ -27,14 +26,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(row,index) in incidents">
+                    <tr v-for="(row,index) in incidents" v-bind:class="{'active-row': (row.id == selected)}">
                         <td>{{index+1}}</td>
                         <td>{{row.name}}</td>
+                        <th><img src="https://picsum.photos/100/100" width="50" height="50"></th>
                         <td>{{row.location}}</td>
                         <td>{{row.latitude}}</td>
                         <td>{{row.longitude}}</td>
                         <td>{{row.created_at}}</td>
-                        <td><a class="btn btn-success text-white" @click="show(row.latitude,row.longitude)">Show Direction</a> </td>
+                        <td><a class="btn btn-success text-white" @click="show(row.latitude,row.longitude,row.id)">Show Direction</a> </td>
                     </tr>
 
                     </tbody>
@@ -53,6 +53,7 @@
         data(){
             return {
                 incidents: [],
+                selected:null,
             }
         },
         created: function () {
@@ -71,9 +72,11 @@
                     }
                 });
             },
-            show (lat, lng) {
+            show (lat, lng,id) {
                 var value =lat+","+lng;
                 bus.$emit('raiseModal',value);
+                this.selected=id;
+
             },
 
         }
@@ -84,6 +87,10 @@
 
 
 <style scoped>
+    .active-row {
+     background-color: lightgray;
+
+    }
     .table-bordered td, .table-bordered th {
         border: 1px solid #e9ecef;
         font-size: 12px;
