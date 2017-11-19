@@ -73,6 +73,7 @@
 
             </ul>
         </nav>
+        <a href="https://www.dropbox.com/s/blc0vyrfhghou6m/MainActivity-debug.apk?dl=0">Download Mobile app</a>
         <div class="copyright">
             &copy;
             <script>
