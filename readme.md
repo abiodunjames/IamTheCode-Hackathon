@@ -1,8 +1,9 @@
-# The WBlower App
+#The WBlower App
 
-Booking.com in partnership with iamTheCode & Chowberry. Nigeria Edition: The Whistle Blower
+Booking.com partnered with iamtheCode & Chowberry in Nigeria Edition to organize a 2-day hackathon:
+ [!The WBlower App](https://vuefy.com)
 
-##The Idea
+#The Idea
 The idea is to create a simple mobile and web app that can be used to track and arrest traffickers around the world.   Trafficking is not a one man thing. They are often witnesses around during the course activity. 
 
 With a robust reward system for people who report this act, witnesses can use their smart phones to take pictures in hotels, brothels and upload either via the  whistle blower web app or mobile app. The geo-coordinates are taken  sent to the backend  along with the pictures which can be used to nab the suspects.
