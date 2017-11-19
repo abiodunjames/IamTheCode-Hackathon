@@ -28,12 +28,20 @@
                     <tr v-for="(row,index) in incidents" v-bind:class="{'active-row': (row.id == selected)}">
                         <td>{{index+1}}</td>
                         <td>{{row.name}}</td>
-                        <th><img src="https://picsum.photos/100/100" width="50" height="50"></th>
+                        <th>
+                            <span v-if="row.photo!=null">
+                            <img :src="row.photo" width="50" height="50"/>
+                            </span>
+                            <span v-if="row.photo==null">
+                                <img src="https://picsum.photos/100/100" width="50" height="50"/>
+                            </span>
+                        </th>
                         <td>{{row.location}}</td>
                         <td>{{row.latitude}}</td>
                         <td>{{row.longitude}}</td>
                         <td>{{row.created_at}}</td>
-                        <td><a class="btn btn-success text-white" @click="show(row.latitude,row.longitude,row.id)">Show Direction</a> </td>
+                        <td><a class="btn btn-success text-white" @click="show(row.latitude,row.longitude,row.id)">Show
+                            Direction</a></td>
                     </tr>
 
                     </tbody>
@@ -52,16 +60,16 @@
         data(){
             return {
                 incidents: [],
-                selected:null,
+                selected: null,
             }
         },
         created: function () {
 
-        this.getData();
+            this.getData();
         },
         methods: {
             getData(){
-                axios.get('/api/incidents').then((response)=> {
+                axios.get('/api/incidents').then((response) => {
                     var response = response.data;
                     console.log(response);
                     if (response.status == true) {
@@ -71,10 +79,10 @@
                     }
                 });
             },
-            show (lat, lng,id) {
-                var value =lat+","+lng;
-                bus.$emit('raiseModal',value);
-                this.selected=id;
+            show (lat, lng, id) {
+                var value = lat + "," + lng;
+                bus.$emit('raiseModal', value);
+                this.selected = id;
 
             },
 
@@ -87,14 +95,14 @@
 
 <style scoped>
     .active-row {
-     background-color: lightgray;
+        background-color: lightgray;
 
     }
+
     .table-bordered td, .table-bordered th {
         border: 1px solid #e9ecef;
         font-size: 12px;
     }
-
 
     .table td, .table th {
         padding: 0.2rem;
