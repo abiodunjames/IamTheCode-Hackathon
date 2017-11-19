@@ -29,10 +29,10 @@
                         <td>{{index+1}}</td>
                         <td>{{row.name}}</td>
                         <th>
-                            <span v-if="row.photo!=''">
+                            <span v-if="row.photo!=null">
                             <img :src="row.photo" width="50" height="50"/>
                             </span>
-                            <span v-if="row.photo==''">
+                            <span v-if="row.photo==null">
                                 <img src="https://picsum.photos/100/100" width="50" height="50"/>
                             </span>
                         </th>

@@ -16429,7 +16429,7 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(row.name))]),
                   _vm._v(" "),
                   _c("th", [
-                    row.photo != ""
+                    row.photo != null
                       ? _c("span", [
                           _c("img", {
                             attrs: { src: row.photo, width: "50", height: "50" }
@@ -16437,7 +16437,7 @@ var render = function() {
                         ])
                       : _vm._e(),
                     _vm._v(" "),
-                    row.photo == ""
+                    row.photo == null
                       ? _c("span", [
                           _c("img", {
                             attrs: {
