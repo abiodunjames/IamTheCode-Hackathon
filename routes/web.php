@@ -23,3 +23,11 @@ Route::get('/places', function () {
 });
 
 Route::post('/submit', 'SubmissionController@saveSubmission')->name('submit');
+
+Route::group(['middleware' => ['web']], function () {
+  Route::get('/admin', 'PageController@index');
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+});

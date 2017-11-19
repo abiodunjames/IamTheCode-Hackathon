@@ -11,7 +11,7 @@
           name='viewport'/>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
-    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
     <!-- CSS Files -->
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet"/>
     <link href="{{asset('assets/css/now-ui-kit.css?v=1.1.0')}}" rel="stylesheet"/>
@@ -28,6 +28,11 @@
   <!-- Navbar -->
       <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
           <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="http://iamthecode.org" rel="tooltip" title="iamtheCODE" data-placement="bottom" target="_blank">
+                    <img src="../assets/img/iamtheCODE-logo.png" alt="iamtheCODE" width="200" height="50">
+                </a>
+            </div>
               <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="../assets/img/blurred-image-1.jpg">
                   <ul class="navbar-nav">
                       <li class="nav-item">

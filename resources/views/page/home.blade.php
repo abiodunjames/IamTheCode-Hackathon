@@ -1,4 +1,4 @@
-@extends('layout');
+@extends('layout')
 
 @section('content')
 
@@ -32,10 +32,7 @@
                   <div class="col-lg-6 text-center col-md-8 ml-auto mr-auto">
                     @if ($errors->any())
                         <div class="alert alert-danger" role="alert">
-                            Please fix the following errors:
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                            Please fix the following errors
                         </div>
                     @endif
                   </div>
@@ -76,9 +73,11 @@
 
     <script>
 
-          function getLocation() {
+          function getLocation(e) {
+             e.preventDefault();
+
               if (navigator.geolocation) {
-                  return navigator.geolocation.getCurrentPosition(showPosition);
+                  navigator.geolocation.getCurrentPosition(showPosition);
               } else {
                 console.log("Geolocation is not supported by this browser.");
 
