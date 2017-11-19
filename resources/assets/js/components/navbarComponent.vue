@@ -8,8 +8,7 @@
                     <span class="button-bar"></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-header" @click="Goto('Home')">Home</a>
-                    <a class="dropdown-item" @click="Goto('Place')">Places</a>
+                    <a class="dropdown-header">Home</a>
                 </div>
             </div>
             <div class="navbar-translate">
@@ -24,10 +23,7 @@
                  data-nav-image="../assets/img/blurred-image-1.jpg">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" @click="Goto('Home')">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" @click="Goto('Place')">Move a round</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom"
