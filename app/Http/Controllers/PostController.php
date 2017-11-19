@@ -62,11 +62,11 @@ class PostController extends Controller
                 $constraint->aspectRatio();
             });
 
-            //$avatar = $avatar->stream();
+            $avatar = $avatar->stream();
             $avatar_path = $path . DIRECTORY_SEPARATOR . $file_name;
             //dd(storage_path().'/'.$avatar_path);
-          //  Storage::disk('public')->put($avatar_path, $avatar->__toString());
-            $request->image->move(public_path($path), $file_name);
+            Storage::disk('public')->put($avatar_path, $avatar->__toString());
+            //$request->image->move(public_path($path), $file_name);
 
             if ($request->has('email')) {
                 $data['email'] = $request->email;
@@ -110,4 +110,3 @@ class PostController extends Controller
 
     }
 }
-
