@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -15,7 +14,6 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{asset('assets/css/demo.css')}}" rel="stylesheet" />
 </head>
-
 <body class="login-page sidebar-collapse">
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
