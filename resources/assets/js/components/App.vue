@@ -33,13 +33,13 @@
                                 <div class="col-md-3 card">
                                     <div class="card-body">
                                         <h1 class="m-0 p-0 text-success">25</h1>
-                                        <h3>Traffickers Confirmed</h3>
+                                        <h3>Traffickers Reported</h3>
                                     </div>
                                 </div>
                                 <div class="col-md-3 card">
                                     <div class="card-body">
                                         <h1 class="m-0 p-0 text-warning">10</h1>
-                                        <h3>Traffickers on the Run</h3>
+                                        <h3>Traffickers Confirmed</h3>
                                     </div>
                                 </div>
                                 <div class="col-md-3 card ">
@@ -51,7 +51,7 @@
                                 <div class="col-md-3 card">
                                     <div class="card-body">
                                         <h1 class="m-0 p-0">5</h1>
-                                        <h3>Traffickers Prosecuted</h3>
+                                        <h3>Traffickers on the Run</h3>
                                     </div>
                                 </div>
                             </div>

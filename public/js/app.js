@@ -16610,7 +16610,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "card-body" }, [
             _c("h1", { staticClass: "m-0 p-0 text-success" }, [_vm._v("25")]),
             _vm._v(" "),
-            _c("h3", [_vm._v("Traffickers Confirmed")])
+            _c("h3", [_vm._v("Traffickers Reported")])
           ])
         ]),
         _vm._v(" "),
@@ -16618,7 +16618,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "card-body" }, [
             _c("h1", { staticClass: "m-0 p-0 text-warning" }, [_vm._v("10")]),
             _vm._v(" "),
-            _c("h3", [_vm._v("Traffickers on the Run")])
+            _c("h3", [_vm._v("Traffickers Confirmed")])
           ])
         ]),
         _vm._v(" "),
@@ -16634,7 +16634,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "card-body" }, [
             _c("h1", { staticClass: "m-0 p-0" }, [_vm._v("5")]),
             _vm._v(" "),
-            _c("h3", [_vm._v("Traffickers Prosecuted")])
+            _c("h3", [_vm._v("Traffickers on the Run")])
           ])
         ])
       ])
