@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('page.home');
 });
 
+Route::get('/submit', function () {
+    return view('page.home');
+});
 Route::get('/places', function () {
     return view('page.places');
 });
 
+Route::post('/submit', 'SubmissionController@saveSubmission')->name('submit');

@@ -2,8 +2,11 @@
 
 namespace App;
 
-class Submission {
+use Illuminate\Database\Eloquent\Model;
 
+class Submission extends Model {
+
+  protected $table="submissions";
   /**
    * The attributes that are mass assignable.
    *
