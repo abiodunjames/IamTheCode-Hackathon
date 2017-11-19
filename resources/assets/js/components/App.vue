@@ -24,8 +24,16 @@
                 </div>
             </div>
             <div class="section section-about-us">
-                <div class="container">
-                    <component v-bind:is="currentView"></component>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <report></report>
+
+                        </div>
+                        <div class="col-md-6">
+                            <direction></direction>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -39,22 +47,23 @@
     import Home from "./Home.vue";
     import Place from "./places.vue";
     import  navbarComponent from "./navbarComponent.vue";
-    import  bus from "./../eventBus/bus.vue"
+    import  bus from "./../eventBus/bus.vue";
+    import Report from "./Report.vue";
+    import Direction from "./GetDirection.vue";
     export default {
         name: "App",
         data(){
             return {
-                currentView: "Home"
+                currentView: "Report"
             }
         },
-        components: {Home, Place,navbarComponent},
+        components: {Home, Place, navbarComponent, Report, Direction},
         created: function () {
             bus.$on('Page', ($event) => {
                 this.currentView = $event;
             });
         },
-        methods: {
-        }
+        methods: {}
     }
 </script>
 

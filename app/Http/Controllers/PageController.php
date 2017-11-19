@@ -16,5 +16,9 @@ class PageController extends Controller
             return response(['status'=>true,'data'=>$incident]);
     }
 
+    public  function DashboardPage(){
+        return view('page.dashboard');
+    }
+
 
 }

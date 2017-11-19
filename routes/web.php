@@ -16,13 +16,15 @@ Route::get('/', function () {
 });
 
 Route::get('api/incidents','PageController@getDashboard');
+
 Route::post('api/upload/image', 'PostController@uploadImage');
 
 Route::post('api/twilio', 'PostController@getUssD');
-Route::get('/submit', function () {
-    return view('page.home');
-});
+
+Route::get('/submit', function () { return view('page.home');});
+
+Route::get('dashboard','PageController@DashboardPage');
+
 Route::get('/places', function () {
     return view('page.places');
 });
-

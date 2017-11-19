@@ -1,22 +1,36 @@
 <template>
-    <div class="row">
-        <div class="col-md-6" id="map" style=" height:500px;"></div>
-        <div class="card col-md-6">
-            <div class="card-body">
-                <div id="panel" style="height:auto;"></div>
+<div>
+        <div class="row">
+            <div class="card">
+                    <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="orange">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" role="tab">
+                                Direction
+                            </a>
+                        </li>
+                    </ul>
+                <div class="card-body">
+                    <div class="col-md-12" id="map" ref="map" style=" height:500px;"></div>
+                    <div id="panel" class="col-md-12" style="height:auto;"></div>
+                </div>
             </div>
         </div>
-    </div>
+</div>
+
+
+
+
 </template>
 
 <script>
+    import  bus from "./../eventBus/bus.vue";
     export default {
         data(){
             return {
-                bubble:false,
-                ui:null,
-                behaviour:null,
-                map:null,
+                bubble: false,
+                ui: null,
+                behaviour: null,
+                map: null,
                 waypoint0: '6.44353,3.47514', // Fernsehturm
                 waypoint1: '6.57015,3.32143',
             }
@@ -24,12 +38,22 @@
         mounted: function () {
             this.init();
         },
+        created: function () {
+            bus.$on('raiseModal', ($event) => {
+                console.log($event);
+                this.waypoint0 = $event;
+                //this.raiseModal();
+                this.init();
+            });
+        },
         computed: {
             mapContainer: function () {
                 return document.getElementById('map');
+
             },
             routeInstructionsContainer: function () {
                 return document.getElementById('panel');
+
             },
             platform: function () {
                 return new H.service.Platform({
@@ -40,203 +64,212 @@
                 });
             }
         },
-         methods: {
-                calculateRouteFromAtoB (platform) {
-                    var router = platform.getRoutingService(),
-                        routeRequestParams = {
-                            mode: 'fastest;car;traffic:enabled',
-                            representation: 'display',
-                            waypoint0: this.waypoint0, // Fernsehturm
-                            waypoint1: this.waypoint1,  // Kurfürstendamm
-                            routeattributes: 'waypoints,summary,shape,legs',
-                            maneuverattributes: 'direction,action'
-                        };
-                    router.calculateRoute(
-                        routeRequestParams,
-                        this.onSuccess,
-                        this.onError
-                    );
-                },
-                onSuccess(result) {
-                    var route = result.response.route[0];
-                    this.addRouteShapeToMap(route);
-                    this.addManueversToMap(route);
-                    this.addWaypointsToPanel(route.waypoint);
-                    this.addManueversToPanel(route);
-                    this.addSummaryToPanel(route.summary);
-                    // ... etc.
-                },
-                onError(error) {
-                    alert('Ooops!');
-                },
-                init(){
-                    var mapContainer = this.mapContainer;
-                    var routeInstructionsContainer = this.routeInstructionsContainer;
-                    //Step 1: initialize communication with the platform
+        methods: {
+            raiseModal(){
+                this.$modal.show('direction-modal');
+            },
+            hideModal(){
+                this.$modal.hide('direction-modal');
 
-                    var platform = this.platform;
-                    var defaultLayers = platform.createDefaultLayers();
+            },
+            calculateRouteFromAtoB (platform) {
+                console.log(this.waypoint0);
+                console.log(this.waypoint1);
+                var router = platform.getRoutingService(),
+                    routeRequestParams = {
+                        mode: 'fastest;car;traffic:enabled',
+                        representation: 'display',
+                        waypoint0: this.waypoint0, // Fernsehturm
+                        waypoint1: this.waypoint1,  // Kurfürstendamm
+                        routeattributes: 'waypoints,summary,shape,legs',
+                        maneuverattributes: 'direction,action'
+                    };
+                router.calculateRoute(
+                    routeRequestParams,
+                    this.onSuccess,
+                    this.onError
+                );
+            },
+            onSuccess(result) {
+                var route = result.response.route[0];
+                this.addRouteShapeToMap(route);
+                this.addManueversToMap(route);
+                this.addWaypointsToPanel(route.waypoint);
+                this.addManueversToPanel(route);
+                this.addSummaryToPanel(route.summary);
+                // ... etc.
+            },
+            onError(error) {
+                alert('Ooops!');
+            },
+            init(){
+                var mapContainer = this.mapContainer;
+                var routeInstructionsContainer = this.routeInstructionsContainer;
+                //Step 1: initialize communication with the platform
 
-                    //Step 2: initialize a map - this map is centered over Berlin
-                    var map = new H.Map(mapContainer, defaultLayers.normal.map, {
-                            center: {lat: 6.5244, lng: 3.3792},
-                            zoom: 13
-                        });
-                    this.map =map;
+                var platform = this.platform;
+                var defaultLayers = platform.createDefaultLayers();
 
-                    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-                    this.behaviour =behavior;
-                    // Create the default UI components
-                    var ui = H.ui.UI.createDefault(map, defaultLayers);
-                    this.ui =ui;
-                    this.calculateRouteFromAtoB (platform);
+                //Step 2: initialize a map - this map is centered over Berlin
+                var map = new H.Map(mapContainer, defaultLayers.normal.map, {
+                    center: {lat: 6.5244, lng: 3.3792},
+                    zoom: 13
+                });
+                this.map = map;
 
-                },
-                openBubble(position, text) {
-                    if (!this.bubble) {
-                        this.bubble = new H.ui.InfoBubble(
-                            position,
-                            // The FO property holds the province name.
-                            {content: text});
-                        this.ui.addBubble(bubble);
-                    } else {
-                        this.bubble.setPosition(position);
-                        this.bubble.setContent(text);
-                        this.bubble.open();
+                var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+                this.behaviour = behavior;
+                // Create the default UI components
+                var ui = H.ui.UI.createDefault(map, defaultLayers);
+                this.ui = ui;
+                this.calculateRouteFromAtoB(platform);
+
+            },
+            openBubble(position, text) {
+                if (!this.bubble) {
+                    this.bubble = new H.ui.InfoBubble(
+                        position,
+                        // The FO property holds the province name.
+                        {content: text});
+                    this.ui.addBubble(bubble);
+                } else {
+                    this.bubble.setPosition(position);
+                    this.bubble.setContent(text);
+                    this.bubble.open();
+                }
+            },
+
+            addRouteShapeToMap(route) {
+                var lineString = new H.geo.LineString(),
+                    routeShape = route.shape,
+                    polyline;
+
+                routeShape.forEach(function (point) {
+                    var parts = point.split(',');
+                    lineString.pushLatLngAlt(parts[0], parts[1]);
+                });
+
+                polyline = new H.map.Polyline(lineString, {
+                    style: {
+                        lineWidth: 4,
+                        strokeColor: 'rgba(0, 128, 255, 0.7)'
                     }
-                },
+                });
+                // Add the polyline to the map
+                this.map.addObject(polyline);
+                // And zoom to its bounding rectangle
+                this.map.setViewBounds(polyline.getBounds(), true);
+            },
 
-                addRouteShapeToMap(route) {
-                    var lineString = new H.geo.LineString(),
-                        routeShape = route.shape,
-                        polyline;
+            addManueversToMap(route) {
+                var svgMarkup = '<svg width="18" height="18" ' +
+                        'xmlns="http://www.w3.org/2000/svg">' +
+                        '<circle cx="8" cy="8" r="8" ' +
+                        'fill="#1b468d" stroke="white" stroke-width="1"  />' +
+                        '</svg>',
+                    dotIcon = new H.map.Icon(svgMarkup, {anchor: {x: 8, y: 8}}),
+                    group = new H.map.Group(),
+                    i,
+                    j;
 
-                    routeShape.forEach(function (point) {
-                        var parts = point.split(',');
-                        lineString.pushLatLngAlt(parts[0], parts[1]);
-                    });
-
-                    polyline = new H.map.Polyline(lineString, {
-                        style: {
-                            lineWidth: 4,
-                            strokeColor: 'rgba(0, 128, 255, 0.7)'
-                        }
-                    });
-                    // Add the polyline to the map
-                   this.map.addObject(polyline);
-                    // And zoom to its bounding rectangle
-                    this.map.setViewBounds(polyline.getBounds(), true);
-                },
-
-                addManueversToMap(route) {
-                    var svgMarkup = '<svg width="18" height="18" ' +
-                            'xmlns="http://www.w3.org/2000/svg">' +
-                            '<circle cx="8" cy="8" r="8" ' +
-                            'fill="#1b468d" stroke="white" stroke-width="1"  />' +
-                            '</svg>',
-                        dotIcon = new H.map.Icon(svgMarkup, {anchor: {x: 8, y: 8}}),
-                        group = new H.map.Group(),
-                        i,
-                        j;
-
-                    // Add a marker for each maneuver
-                    var maneuver;
-                    for (i = 0; i < route.leg.length; i += 1) {
-                        for (j = 0; j < route.leg[i].maneuver.length; j += 1) {
-                            // Get the next maneuver.
-                             maneuver = route.leg[i].maneuver[j];
-                            // Add a marker to the maneuvers group
-                            var marker = new H.map.Marker({
-                                    lat: maneuver.position.latitude,
-                                    lng: maneuver.position.longitude
-                                },
-                                {icon: dotIcon});
-                            marker.instruction = maneuver.instruction;
-                            group.addObject(marker);
-                        }
+                // Add a marker for each maneuver
+                var maneuver;
+                for (i = 0; i < route.leg.length; i += 1) {
+                    for (j = 0; j < route.leg[i].maneuver.length; j += 1) {
+                        // Get the next maneuver.
+                        maneuver = route.leg[i].maneuver[j];
+                        // Add a marker to the maneuvers group
+                        var marker = new H.map.Marker({
+                                lat: maneuver.position.latitude,
+                                lng: maneuver.position.longitude
+                            },
+                            {icon: dotIcon});
+                        marker.instruction = maneuver.instruction;
+                        group.addObject(marker);
                     }
+                }
 
-                    group.addEventListener('tap', function (evt) {
-                        this.map.setCenter(evt.target.getPosition());
-                        this.openBubble(
-                            evt.target.getPosition(), evt.target.instruction);
-                    }, false);
+                group.addEventListener('tap', function (evt) {
+                    this.map.setCenter(evt.target.getPosition());
+                    this.openBubble(
+                        evt.target.getPosition(), evt.target.instruction);
+                }, false);
 
-                    // Add the maneuvers group to the map
-                    this.map.addObject(group);
-                },
+                // Add the maneuvers group to the map
+                this.map.addObject(group);
+            },
 
-                addWaypointsToPanel(waypoints) {
+            addWaypointsToPanel(waypoints) {
 
 
-                    var nodeH3 = document.createElement('h5'),
-                        waypointLabels = [],
-                        i;
-                    for (i = 0; i < waypoints.length; i += 1) {
-                        waypointLabels.push(waypoints[i].label)
+                var nodeH3 = document.createElement('h5'),
+                    waypointLabels = [],
+                    i;
+                for (i = 0; i < waypoints.length; i += 1) {
+                    waypointLabels.push(waypoints[i].label)
+                }
+
+                nodeH3.textContent = waypointLabels.join(' - ');
+
+                this.routeInstructionsContainer.innerHTML = '';
+                this.routeInstructionsContainer.appendChild(nodeH3);
+            },
+
+            addSummaryToPanel(summary) {
+                var summaryDiv = document.createElement('div'),
+                    content = '';
+                content += '<b>Total distance</b>: ' + summary.distance + 'm. <br/>';
+                content += '<b>Travel Time</b>: ' + this.toMMSS(summary.travelTime) + ' (in current traffic)';
+
+
+                summaryDiv.style.fontSize = 'small';
+                summaryDiv.style.marginLeft = '5%';
+                summaryDiv.style.marginRight = '5%';
+                summaryDiv.innerHTML = content;
+                this.routeInstructionsContainer.appendChild(summaryDiv);
+            },
+
+            toMMSS (time) {
+                return Math.floor(time / 60) + ' minutes ' + (time % 60) + ' seconds.';
+            },
+            addManueversToPanel(route) {
+
+
+                var nodeOL = document.createElement('ol'),
+                    i,
+                    j;
+
+                nodeOL.style.fontSize = 'small';
+                nodeOL.style.marginLeft = '5%';
+                nodeOL.style.marginRight = '5%';
+                nodeOL.className = 'directions';
+
+                // Add a marker for each maneuver
+                var maneuver;
+                for (i = 0; i < route.leg.length; i += 1) {
+                    for (j = 0; j < route.leg[i].maneuver.length; j += 1) {
+                        // Get the next maneuver.
+                        maneuver = route.leg[i].maneuver[j];
+
+                        var li = document.createElement('li'),
+                            spanArrow = document.createElement('span'),
+                            spanInstruction = document.createElement('span');
+
+                        spanArrow.className = 'arrow ' + maneuver.action;
+                        spanInstruction.innerHTML = maneuver.instruction;
+                        li.appendChild(spanArrow);
+                        li.appendChild(spanInstruction);
+
+                        nodeOL.appendChild(li);
                     }
+                }
 
-                    nodeH3.textContent = waypointLabels.join(' - ');
-
-                    this.routeInstructionsContainer.innerHTML = '';
-                    this.routeInstructionsContainer.appendChild(nodeH3);
-                },
-
-                addSummaryToPanel(summary) {
-                    var summaryDiv = document.createElement('div'),
-                        content = '';
-                    content += '<b>Total distance</b>: ' + summary.distance + 'm. <br/>';
-                    content += '<b>Travel Time</b>: ' + this.toMMSS(summary.travelTime) + ' (in current traffic)';
+                this.routeInstructionsContainer.appendChild(nodeOL);
+            },
 
 
-                    summaryDiv.style.fontSize = 'small';
-                    summaryDiv.style.marginLeft = '5%';
-                    summaryDiv.style.marginRight = '5%';
-                    summaryDiv.innerHTML = content;
-                    this.routeInstructionsContainer.appendChild(summaryDiv);
-                },
-
-             toMMSS (time) {
-                return  Math.floor(time / 60)  +' minutes '+ (time % 60)  + ' seconds.';
-                },
-                addManueversToPanel(route) {
-
-
-                    var nodeOL = document.createElement('ol'),
-                        i,
-                        j;
-
-                    nodeOL.style.fontSize = 'small';
-                    nodeOL.style.marginLeft = '5%';
-                    nodeOL.style.marginRight = '5%';
-                    nodeOL.className = 'directions';
-
-                    // Add a marker for each maneuver
-                    var maneuver;
-                    for (i = 0; i < route.leg.length; i += 1) {
-                        for (j = 0; j < route.leg[i].maneuver.length; j += 1) {
-                            // Get the next maneuver.
-                            maneuver = route.leg[i].maneuver[j];
-
-                            var li = document.createElement('li'),
-                                spanArrow = document.createElement('span'),
-                                spanInstruction = document.createElement('span');
-
-                            spanArrow.className = 'arrow ' + maneuver.action;
-                            spanInstruction.innerHTML = maneuver.instruction;
-                            li.appendChild(spanArrow);
-                            li.appendChild(spanInstruction);
-
-                            nodeOL.appendChild(li);
-                        }
-                    }
-
-                    this.routeInstructionsContainer.appendChild(nodeOL);
-                },
-
-
-            }
         }
+    }
 </script>
 <style>
     .directions li span.arrow {
