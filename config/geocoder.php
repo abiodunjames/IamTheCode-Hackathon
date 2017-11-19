@@ -1,26 +1,24 @@
 <?php
 
-/**
- * This file is part of the GeocoderLaravel library.
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-use Geocoder\Provider\Chain\Chain;
-use Geocoder\Provider\GeoPlugin\GeoPlugin;
-use Geocoder\Provider\GoogleMaps\GoogleMaps;
-use Http\Client\Curl\Client;
-
 return [
-    'cache-duration' => 9999999,
-    'providers' => [
-        Chain::class => [
-            GoogleMaps::class => [
-                'en-US',
-                env('GEOCODE'),
-            ],
-            GeoPlugin::class  => [],
-        ],
-    ],
-    'adapter'  => Client::class,
+
+    /*
+     * The api key used when sending Geocoding requests to Google.
+     */
+    'key' => env('GOOGLE_MAPS_GEOCODING_API_KEY'),
+    /*
+     * The language param used to set response translations for textual data.
+     *
+     * More info: https://developers.google.com/maps/faq#languagesupport
+     */
+
+    'language' => '',
+
+    /*
+     * The region param used to finetune the geocoding process.
+     *
+     * More info: https://developers.google.com/maps/documentation/geocoding/intro#RegionCodes
+     */
+    'region' => '',
+
 ];

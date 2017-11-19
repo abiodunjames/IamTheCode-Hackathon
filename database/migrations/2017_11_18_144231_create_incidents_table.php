@@ -20,9 +20,9 @@ class CreateIncidentsTable extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->string('location')->nullable();
-            $table->text('photo');
-            $table->text('address');
-            $table->integer('status');
+            $table->text('photo')->nullable();
+            $table->text('address')->nullable();
+            $table->integer('status')->nullable();
 
             $table->timestamps();
         });

@@ -11,7 +11,7 @@
         "intervention/image": "^2.4",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "toin0u/geocoder-laravel": "^4.0"
+        "spatie/geocoder": "^3.1"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

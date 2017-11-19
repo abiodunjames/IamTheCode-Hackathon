@@ -11,12 +11,10 @@ namespace App\Services;
 
 
  public static  $fromNumber="";
-
      /**
       * @return Twilio
       */
     public static  function Twilio(){
-
         return new Twilio(env('TWILIO_SID'), env('TWILIO_KEY'), self::$fromNumber);
     }
 
