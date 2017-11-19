@@ -1,8 +1,7 @@
 <template>
     <div class="row">
         <div class="card">
-            <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist"
-                data-background-color="black">
+            <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="black">
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" role="tab" @click="getData()">
                         <i class="now-ui-icons objects_umbrella-13"></i> Refresh
