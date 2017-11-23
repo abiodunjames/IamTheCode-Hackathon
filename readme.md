@@ -1,7 +1,5 @@
 # The WBlower App
 
-Booking.com in partnership with iamtheCode Nigeria  Edition : WBlower App
-
  Track 2 is to decode ways to reduce or prevent human trafficking through the use of technology and also create awareness on human trafficking and sex labor.  
 
 WBlower or Whistle Blower App is one of the concepts we came up with during the course of the hackathon
