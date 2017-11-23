@@ -1,6 +1,6 @@
 # The WBlower App
 
- Track 2 is to decode ways to reduce or prevent human trafficking through the use of technology and also create awareness on human trafficking and sex labor.  
+ Track 2 is to decode ways to reduce or prevent human trafficking through the use of technology, create awareness on human trafficking and sex labor.  
 
 WBlower or Whistle Blower App is one of the concepts we came up with during the course of the hackathon
  [The WBlower App](https://vuefy.com)
